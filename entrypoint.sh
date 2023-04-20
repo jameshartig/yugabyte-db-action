@@ -23,7 +23,7 @@ SERVICE_ID=$(docker run \
   -p "${INPUT_YCQL_PORT}:${INPUT_YCQL_PORT}" \
   --detach "${ENV_VARS[@]}" \
   yugabytedb/yugabyte:"${INPUT_YB_IMAGE_TAG}" \
-  bin/yugabyted start --ycql_port="${INPUT_YCQL_PORT}" --ysql_port="${INPUT_YSQL_PORT}" \
+  bin/yugabyted start --tserver_flags "pgsql_proxy_bind_address=0.0.0.0:${INPUT_YSQL_PORT},cql_proxy_bind_address=0.0.0.0:${INPUT_YCQL_PORT}" \
   --master_webserver_port="${INPUT_YB_MASTER_UI_PORT}" --tserver_webserver_port="${INPUT_YB_TSERVER_UI_PORT}" \
   --daemon=false --ui=false)
 
